@@ -1,0 +1,313 @@
+# Phase Gate Status - {FEATURE_NAME}
+# 质量门控状态文件 - 跟踪各阶段的质量检查点
+
+# 基本信息
+project:
+  name: "{FEATURE_NAME}"
+  display_name: "{FEATURE_DISPLAY_NAME}"
+  session_id: "{SESSION_ID}"
+  created_date: "{CREATION_DATE}"
+  last_updated: "{LAST_UPDATE_DATE}"
+
+# 当前阶段信息
+current_phase: "{CURRENT_PHASE}"  # Phase1-Kickoff, Phase2-Spec, Phase3-Demo, Phase4-Design, Phase5-Code, Phase6-Test
+phase_start_date: "{PHASE_START_DATE}"
+phase_progress: {PHASE_PROGRESS}  # 0-100
+
+# Phase Gate 定义和状态
+gates:
+  # Phase 1: Kickoff
+  kickoff:
+    description: "项目启动，创建基础文档"
+    status: "{KICKOFF_STATUS}"  # pending, in_progress, passed, blocked, failed
+    completion_date: "{KICKOFF_COMPLETION_DATE}"
+
+    checks:
+      directory_created:
+        description: "功能目录已创建"
+        status: "{DIRECTORY_CREATED_STATUS}"  # passed, failed
+        check_command: "ls docs/{feature-name}/"
+        evidence: "docs/{feature-name}/ 存在"
+
+      context_documented:
+        description: "功能上下文文档已完成"
+        status: "{CONTEXT_DOCUMENTED_STATUS}"
+        check_command: "test -f docs/{feature-name}/00_CONTEXT.md"
+        evidence: "docs/{feature-name}/00_CONTEXT.md 存在且内容完整"
+
+      basic_planning:
+        description: "基础计划已制定"
+        status: "{BASIC_PLANNING_STATUS}"
+        evidence: "Phase计划已在00_CONTEXT.md中定义"
+
+    blocker:
+      active: {KICKOFF_BLOCKER_ACTIVE}
+      reason: "{KICKOFF_BLOCKER_REASON}"
+      resolution: "{KICKOUT_BLOCKER_RESOLUTION}"
+
+  # Phase 2: Spec
+  spec:
+    description: "需求分析和技术设计"
+    status: "{SPEC_STATUS}"
+    completion_date: "{SPEC_COMPLETION_DATE}"
+
+    checks:
+      requirements_defined:
+        description: "需求已明确定义"
+        status: "{REQUIREMENTS_DEFINED_STATUS}"
+        evidence: "10_DESIGN_FINAL.md 包含完整的需求分析"
+
+      design_completed:
+        description: "技术设计已完成"
+        status: "{DESIGN_COMPLETED_STATUS}"
+        evidence: "架构设计、API设计、数据库设计已完成"
+
+      acceptance_criteria:
+        description: "验收标准已定义"
+        status: "{ACCEPTANCE_CRITERIA_STATUS}"
+        evidence: "功能性/非功能性验收标准已定义"
+
+      design_reviewed:
+        description: "设计已通过评审"
+        status: "{DESIGN_REVIEWED_STATUS}"
+        evidence: "设计评审记录或批准确认"
+
+    blocker:
+      active: {SPEC_BLOCKER_ACTIVE}
+      reason: "{SPEC_BLOCKER_REASON}"
+      resolution: "{SPEC_BLOCKER_RESOLUTION}"
+
+  # Phase 3: Demo (可选)
+  demo:
+    description: "原型演示和用户验证"
+    status: "{DEMO_STATUS}"
+    completion_date: "{DEMO_COMPLETION_DATE}"
+    optional: true
+
+    checks:
+      prototype_built:
+        description: "可交互原型已构建"
+        status: "{PROTOTYPE_BUILT_STATUS}"
+        evidence: "原型链接或演示记录"
+
+      user_feedback:
+        description: "用户反馈已收集"
+        status: "{USER_FEEDBACK_STATUS}"
+        evidence: "用户反馈记录和改进建议"
+
+    blocker:
+      active: {DEMO_BLOCKER_ACTIVE}
+      reason: "{DEMO_BLOCKER_REASON}"
+      resolution: "{DEMO_BLOCKER_RESOLUTION}"
+
+  # Phase 4: Design (可选)
+  design:
+    description: "UI/UX设计"
+    status: "{DESIGN_STATUS}"
+    completion_date: "{DESIGN_COMPLETION_DATE}"
+    optional: true
+
+    checks:
+      ui_design:
+        description: "UI设计已完成"
+        status: "{UI_DESIGN_STATUS}"
+        evidence: "设计稿链接或文件"
+
+      interaction_design:
+        description: "交互设计已完成"
+        status: "{INTERACTION_DESIGN_STATUS}"
+        evidence: "交互原型或设计规范"
+
+    blocker:
+      active: {DESIGN_BLOCKER_ACTIVE}
+      reason: "{DESIGN_BLOCKER_REASON}"
+      resolution: "{DESIGN_BLOCKER_RESOLUTION}"
+
+  # Phase 5: Code
+  code:
+    description: "开发实现"
+    status: "{CODE_STATUS}"
+    completion_date: "{CODE_COMPLETION_DATE}"
+
+    checks:
+      backend_implementation:
+        description: "后端功能已实现"
+        status: "{BACKEND_IMPLEMENTATION_STATUS}"
+        check_command: "test -f src/{backend_module}/index.js"
+        evidence: "后端代码已提交并通过单元测试"
+
+      frontend_implementation:
+        description: "前端功能已实现"
+        status: "{FRONTEND_IMPLEMENTATION_STATUS}"
+        check_command: "test -f src/{frontend_component}/index.tsx"
+        evidence: "前端组件已实现并通过测试"
+
+      unit_tests:
+        description: "单元测试通过"
+        status: "{UNIT_TESTS_STATUS}"
+        check_command: "npm run test:unit"
+        evidence: "单元测试覆盖率 > 80%"
+        threshold:
+          coverage: 80
+
+      integration_tests:
+        description: "集成测试通过"
+        status: "{INTEGRATION_TESTS_STATUS}"
+        check_command: "npm run test:integration"
+        evidence: "API集成测试通过"
+
+      code_quality:
+        description: "代码质量检查通过"
+        status: "{CODE_QUALITY_STATUS}"
+        check_command: "npm run lint && npm run type-check"
+        evidence: "代码风格检查和类型检查通过"
+
+      documentation:
+        description: "API文档已更新"
+        status: "{DOCUMENTATION_STATUS}"
+        evidence: "API文档已同步更新"
+
+      code_review:
+        description: "代码审查已完成"
+        status: "{CODE_REVIEW_STATUS}"
+        evidence: "代码审查记录或PR已合并"
+
+    blocker:
+      active: {CODE_BLOCKER_ACTIVE}
+      reason: "{CODE_BLOCKER_REASON}"
+      resolution: "{CODE_BLOCKER_RESOLUTION}"
+
+  # Phase 6: Test
+  test:
+    description: "测试验证"
+    status: "{TEST_STATUS}"
+    completion_date: "{TEST_COMPLETION_DATE}"
+
+    checks:
+      functional_tests:
+        description: "功能测试通过"
+        status: "{FUNCTIONAL_TESTS_STATUS}"
+        check_command: "npm run test:e2e"
+        evidence: "端到端功能测试通过"
+
+      performance_tests:
+        description: "性能测试达标"
+        status: "{PERFORMANCE_TESTS_STATUS}"
+        evidence: "性能指标达到设计要求"
+        threshold:
+          response_time: "1000ms"
+          throughput: "100 req/s"
+
+      security_tests:
+        description: "安全测试通过"
+        status: "{SECURITY_TESTS_STATUS}"
+        evidence: "安全扫描无高危漏洞"
+
+      deployment_ready:
+        description: "部署就绪"
+        status: "{DEPLOYMENT_READY_STATUS}"
+        evidence: "部署文档和配置准备完成"
+
+    blocker:
+      active: {TEST_BLOCKER_ACTIVE}
+      reason: "{TEST_BLOCKER_REASON}"
+      resolution: "{TEST_BLOCKER_RESOLUTION}"
+
+# 整体项目状态
+overall_status:
+  progress_percentage: {OVERALL_PROGRESS}  # 0-100
+  estimated_completion: "{ESTIMATED_COMPLETION_DATE}"
+  health_status: "{HEALTH_STATUS}"  # healthy, at_risk, delayed, blocked
+
+  # 质量指标
+  quality_metrics:
+    test_coverage: {TEST_COVERAGE}  # 百分比
+    bug_count: {BUG_COUNT}
+    performance_score: {PERFORMANCE_SCORE}
+    security_score: {SECURITY_SCORE}
+
+# 自动化检查配置
+automation:
+  enabled_checks:
+    - name: "test_coverage"
+      command: "npm run test:coverage"
+      threshold: 80
+      auto_fail: true
+
+    - name: "linting"
+      command: "npm run lint"
+      auto_fail: true
+
+    - name: "type_check"
+      command: "npm run type-check"
+      auto_fail: true
+
+# 审批记录
+approvals:
+  - phase: "Phase2-Spec"
+    approver: "{SPEC_APPROVER}"
+    approval_date: "{SPEC_APPROVAL_DATE}"
+    comments: "{SPEC_APPROVAL_COMMENTS}"
+
+  - phase: "Phase5-Code"
+    approver: "{CODE_APPROVER}"
+    approval_date: "{CODE_APPROVAL_DATE}"
+    comments: "{CODE_APPROVAL_COMMENTS}"
+
+# 风险跟踪
+risks:
+  - id: "RISK-001"
+    description: "{RISK_1_DESCRIPTION}"
+    impact: "{RISK_1_IMPACT}"  # high, medium, low
+    probability: "{RISK_1_PROBABILITY}"  # high, medium, low
+    mitigation: "{RISK_1_MITIGATION}"
+    status: "{RISK_1_STATUS}"  # open, mitigated, closed
+
+  - id: "RISK-002"
+    description: "{RISK_2_DESCRIPTION}"
+    impact: "{RISK_2_IMPACT}"
+    probability: "{RISK_2_PROBABILITY}"
+    mitigation: "{RISK_2_MITIGATION}"
+    status: "{RISK_2_STATUS}"
+
+# 依赖项
+dependencies:
+  blocked_by: []  # 被哪些功能阻塞
+  blocking: []    # 阻塞哪些功能
+
+  external_deps:
+    - name: "{DEP_1_NAME}"
+      status: "{DEP_1_STATUS}"  # available, delayed, unavailable
+      impact: "{DEP_1_IMPACT}"
+
+# 变更记录
+change_history:
+  - timestamp: "{CHANGE_1_TIMESTAMP}"
+    phase: "{CHANGE_1_PHASE}"
+    change_type: "{CHANGE_1_TYPE}"  # status_update, blocker_added, blocker_resolved
+    details: "{CHANGE_1_DETAILS}"
+    changed_by: "{CHANGE_1_AUTHOR}"
+
+  - timestamp: "{CHANGE_2_TIMESTAMP}"
+    phase: "{CHANGE_2_PHASE}"
+    change_type: "{CHANGE_2_TYPE}"
+    details: "{CHANGE_2_DETAILS}"
+    changed_by: "{CHANGE_2_AUTHOR}"
+
+# 通知配置
+notifications:
+  channels:
+    - type: "email"
+      recipients: ["{NOTIFICATION_EMAIL_1}", "{NOTIFICATION_EMAIL_2}"]
+      triggers: ["phase_complete", "blocker_detected"]
+
+    - type: "slack"
+      webhook: "{SLACK_WEBHOOK_URL}"
+      triggers: ["phase_complete", "blocker_resolved"]
+
+# 配置元数据
+metadata:
+  template_version: "1.0.0"
+  last_check_script_run: "{LAST_CHECK_RUN}"
+  next_auto_check: "{NEXT_AUTO_CHECK}"
+  check_frequency: "daily"  # hourly, daily, weekly

@@ -29,7 +29,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # 工具源目录
-TOOLS_BASE="$PROJECT_ROOT/_templates/CC_COLLABORATION/05_TOOLS"
+TOOLS_BASE="$PROJECT_ROOT/CC_COLLABORATION/05_tools"
 COMMANDS_SOURCE="$TOOLS_BASE/slash-commands"
 SKILLS_SOURCE="$TOOLS_BASE/skills"
 SUBAGENTS_SOURCE="$TOOLS_BASE/subagents"
@@ -306,11 +306,11 @@ install_tool_type() {
                 if [ "$VERBOSE" = "1" ]; then
                     print_warning "跳过（已存在）: $prefix$display_name"
                 fi
-                ((skipped++))
+                skipped=$((skipped + 1))
             else
                 cp "$file" "$target_file"
                 print_success "安装: $prefix$display_name"
-                ((count++))
+                count=$((count + 1))
             fi
         fi
     done

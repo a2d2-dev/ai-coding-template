@@ -1,0 +1,629 @@
+# Progress Log - {FEATURE_NAME}
+# 详细任务进度日志 - 跟踪每个任务的状态和完成情况
+
+# 项目基本信息
+project:
+  name: "{FEATURE_NAME}"
+  display_name: "{FEATURE_DISPLAY_NAME}"
+  session_id: "{SESSION_ID}"
+  created_date: "{CREATION_DATE}"
+  owner: "{PROJECT_OWNER}"
+  team: "{PROJECT_TEAM}"
+
+# 整体进度概览
+overall_progress:
+  total_tasks: {TOTAL_TASKS}
+  completed_tasks: {COMPLETED_TASKS}
+  in_progress_tasks: {IN_PROGRESS_TASKS}
+  blocked_tasks: {BLOCKED_TASKS}
+  pending_tasks: {PENDING_TASKS}
+  progress_percentage: {PROGRESS_PERCENTAGE}  # 0-100
+  estimated_completion: "{ESTIMATED_COMPLETION_DATE}"
+
+# Phase 分解和任务列表
+phases:
+  # Phase 1: Kickoff (项目启动)
+  Phase1-Kickoff:
+    description: "项目启动，建立基础框架"
+    start_date: "{PHASE1_START_DATE}"
+    end_date: "{PHASE1_END_DATE}"
+    status: "{PHASE1_STATUS}"  # not_started, in_progress, completed, blocked
+    progress_percentage: {PHASE1_PROGRESS}
+    owner: "{PHASE1_OWNER}"
+
+    # Phase 1 任务列表
+    tasks:
+      - id: "KICK-001"
+        title: "创建功能目录"
+        description: "在docs目录下创建功能专属目录"
+        status: "completed"  # pending, in_progress, completed, blocked, failed
+        priority: "high"  # low, medium, high, critical
+        assignee: "{ASSIGNEE_KICK_001}"
+        estimated_hours: 0.5
+        actual_hours: 0.3
+        start_date: "{KICK_001_START_DATE}"
+        completion_date: "{KICK_001_COMPLETION_DATE}"
+
+        # 任务产出
+        artifacts:
+          - name: "功能目录"
+            path: "docs/{feature-name}/"
+            type: "directory"
+
+        # 验收标准
+        acceptance_criteria:
+          - "目录已创建: docs/{feature-name}/"
+          - "目录包含标准文件结构"
+
+        # 依赖关系
+        dependencies: []
+
+        # 任务备注
+        notes: "使用mkdir命令创建目录结构"
+
+      - id: "KICK-002"
+        title: "编写功能上下文文档"
+        description: "完成00_CONTEXT.md文档，定义业务价值、目标用户和成功标准"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_KICK_002}"
+        estimated_hours: 2
+        actual_hours: 1.5
+        start_date: "{KICK_002_START_DATE}"
+        completion_date: "{KICK_002_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "功能上下文文档"
+            path: "docs/{feature-name}/00_CONTEXT.md"
+            type: "document"
+
+        acceptance_criteria:
+          - "文档包含业务背景说明"
+          - "定义明确的功能目标"
+          - "列出目标用户画像"
+          - "包含验收标准"
+
+        dependencies: ["KICK-001"]
+
+        notes: "参考模板填写，重点关注业务价值"
+
+      - id: "KICK-003"
+        title: "创建进度日志文件"
+        description: "创建30_PROGRESS_LOG.yaml，初始化任务结构"
+        status: "completed"
+        priority: "medium"
+        assignee: "{ASSIGNEE_KICK_003}"
+        estimated_hours: 0.5
+        actual_hours: 0.5
+        start_date: "{KICK_003_START_DATE}"
+        completion_date: "{KICK_003_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "进度日志文件"
+            path: "docs/{feature-name}/30_PROGRESS_LOG.yaml"
+            type: "document"
+
+        acceptance_criteria:
+          - "文件结构完整"
+          - "Phase定义清晰"
+          - "任务分解合理"
+
+        dependencies: ["KICK-001"]
+
+        notes: "使用提供的模板文件"
+
+      - id: "KICK-004"
+        title: "确认功能范围和验收标准"
+        description: "与相关方确认功能范围，明确验收标准"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_KICK_004}"
+        estimated_hours: 1
+        actual_hours: 0.8
+        start_date: "{KICK_004_START_DATE}"
+        completion_date: "{KICK_004_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "功能确认记录"
+            type: "meeting_notes"
+
+        acceptance_criteria:
+          - "功能边界已明确"
+          - "验收标准已达成一致"
+          - "相关方已签字确认"
+
+        dependencies: ["KICK-002"]
+
+  # Phase 2: Spec (需求设计)
+  Phase2-Spec:
+    description: "需求分析和技术设计"
+    start_date: "{PHASE2_START_DATE}"
+    end_date: "{PHASE2_END_DATE}"
+    status: "{PHASE2_STATUS}"
+    progress_percentage: {PHASE2_PROGRESS}
+    owner: "{PHASE2_OWNER}"
+
+    tasks:
+      - id: "SPEC-001"
+        title: "编写详细设计文档"
+        description: "完成10_DESIGN_FINAL.md，包含系统架构、数据模型、API设计等"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_SPEC_001}"
+        estimated_hours: 8
+        actual_hours: 7
+        start_date: "{SPEC_001_START_DATE}"
+        completion_date: "{SPEC_001_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "详细设计文档"
+            path: "docs/{feature-name}/10_DESIGN_FINAL.md"
+            type: "document"
+
+        acceptance_criteria:
+          - "系统架构设计清晰"
+          - "API接口定义完整"
+          - "数据库模型合理"
+          - "安全设计考虑周全"
+
+        dependencies: ["KICK-002", "KICK-004"]
+
+      - id: "SPEC-002"
+        title: "设计各Phase的Gate模板"
+        description: "定义每个Phase的质量门控标准"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_SPEC_002}"
+        estimated_hours: 2
+        actual_hours: 1.8
+        start_date: "{SPEC_002_START_DATE}"
+        completion_date: "{SPEC_002_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Phase Gate配置"
+            type: "configuration"
+
+        acceptance_criteria:
+          - "每个Phase有明确的质量标准"
+          - "检查项可执行"
+          - "阻断条件合理"
+
+        dependencies: ["SPEC-001"]
+
+      - id: "SPEC-003"
+        title: "gate_checker skill接口设计"
+        description: "设计自动检查Gate状态的skill接口"
+        status: "completed"
+        priority: "medium"
+        assignee: "{ASSIGNEE_SPEC_003}"
+        estimated_hours: 3
+        actual_hours: 2.5
+        start_date: "{SPEC_003_START_DATE}"
+        completion_date: "{SPEC_003_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Gate Checker接口"
+            type: "specification"
+
+        acceptance_criteria:
+          - "接口定义清晰"
+          - "检查逻辑合理"
+          - "错误处理完善"
+
+        dependencies: ["SPEC-002"]
+
+      - id: "SPEC-004"
+        title: "专家评审并修订设计文档"
+        description: "组织专家评审，根据反馈修订设计文档"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_SPEC_004}"
+        estimated_hours: 4
+        actual_hours: 3.5
+        start_date: "{SPEC_004_START_DATE}"
+        completion_date: "{SPEC_004_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "设计文档V1.2"
+            path: "docs/{feature-name}/10_DESIGN_FINAL.md"
+            type: "document"
+          - name: "评审记录"
+            type: "document"
+
+        acceptance_criteria:
+          - "专家评审已完成"
+          - "关键反馈已处理"
+          - "文档已更新至V1.2"
+
+        dependencies: ["SPEC-001", "SPEC-002", "SPEC-003"]
+
+  # Phase 3: Demo (原型演示) - 可选
+  Phase3-Demo:
+    description: "原型演示和用户验证"
+    start_date: "{PHASE3_START_DATE}"
+    end_date: "{PHASE3_END_DATE}"
+    status: "{PHASE3_STATUS}"
+    progress_percentage: {PHASE3_PROGRESS}
+    owner: "{PHASE3_OWNER}"
+    optional: true
+
+    tasks:
+      - id: "DEMO-001"
+        title: "创建交互原型"
+        description: "使用Figma或其他工具创建可交互的原型"
+        status: "skipped"  # skipped for optional phases
+        priority: "medium"
+        assignee: "{ASSIGNEE_DEMO_001}"
+        estimated_hours: 6
+        actual_hours: 0
+
+        acceptance_criteria:
+          - "原型覆盖主要功能"
+          - "交互流程完整"
+          - "视觉效果达标"
+
+      - id: "DEMO-002"
+        title: "用户验证测试"
+        description: "邀请目标用户测试原型，收集反馈"
+        status: "skipped"
+        priority: "medium"
+        assignee: "{ASSIGNEE_DEMO_002}"
+        estimated_hours: 3
+
+        acceptance_criteria:
+          - "至少5个用户参与测试"
+          - "收集到改进建议"
+          - "完成反馈分析报告"
+
+  # Phase 4: Design (UI/UX设计) - 可选
+  Phase4-Design:
+    description: "UI/UX视觉设计"
+    start_date: "{PHASE4_START_DATE}"
+    end_date: "{PHASE4_END_DATE}"
+    status: "{PHASE4_STATUS}"
+    progress_percentage: {PHASE4_PROGRESS}
+    owner: "{PHASE4_OWNER}"
+    optional: true
+
+    tasks:
+      - id: "DSGN-001"
+        title: "UI视觉设计"
+        description: "完成界面的视觉设计稿"
+        status: "skipped"
+        priority: "medium"
+        assignee: "{ASSIGNEE_DSGN_001}"
+        estimated_hours: 8
+
+        acceptance_criteria:
+          - "设计稿覆盖所有页面"
+          - "符合设计规范"
+          - "适配不同分辨率"
+
+  # Phase 5: Code (开发实现)
+  Phase5-Code:
+    description: "功能开发实现"
+    start_date: "{PHASE5_START_DATE}"
+    end_date: "{PHASE5_END_DATE}"
+    status: "{PHASE5_STATUS}"
+    progress_percentage: {PHASE5_PROGRESS}
+    owner: "{PHASE5_OWNER}"
+
+    tasks:
+      - id: "CODE-001"
+        title: "实现Phase Gate文件模板"
+        description: "创建PHASE_GATE.yaml和PHASE_GATE_STATUS.yaml模板"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_001}"
+        estimated_hours: 3
+        actual_hours: 2.5
+        start_date: "{CODE_001_START_DATE}"
+        completion_date: "{CODE_001_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Phase Gate模板"
+            type: "template"
+
+        acceptance_criteria:
+          - "模板结构完整"
+          - "变量替换正确"
+          - "验证逻辑完善"
+
+        dependencies: ["SPEC-002"]
+
+      - id: "CODE-002"
+        title: "实现gate checker skill"
+        description: "开发自动检查Phase Gate状态的skill"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_002}"
+        estimated_hours: 5
+        actual_hours: 4.2
+        start_date: "{CODE_002_START_DATE}"
+        completion_date: "{CODE_002_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Gate Checker Skill"
+            path: "skills/gate_checker.md"
+            type: "skill"
+
+        acceptance_criteria:
+          - "能正确读取Gate状态"
+          - "支持自动化检查"
+          - "提供清晰的报告"
+
+        dependencies: ["SPEC-003", "CODE-001"]
+
+      - id: "CODE-003"
+        title: "实现/check-gate命令"
+        description: "创建斜杠命令，用于检查当前Phase的Gate状态"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_003}"
+        estimated_hours: 2
+        actual_hours: 1.8
+        start_date: "{CODE_003_START_DATE}"
+        completion_date: "{CODE_003_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Check Gate命令"
+            path: ".claude/commands/check-gate.md"
+            type: "command"
+
+        acceptance_criteria:
+          - "命令正确执行"
+          - "输出格式友好"
+          - "错误处理完善"
+
+        dependencies: ["CODE-002"]
+
+      - id: "CODE-004"
+        title: "实现/approve-gate命令"
+        description: "创建斜杠命令，用于批准通过某个Gate"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_004}"
+        estimated_hours: 2
+        actual_hours: 1.7
+        start_date: "{CODE_004_START_DATE}"
+        completion_date: "{CODE_004_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Approve Gate命令"
+            path: ".claude/commands/approve-gate.md"
+            type: "command"
+
+        acceptance_criteria:
+          - "支持手动批准"
+          - "记录批准信息"
+          - "更新Gate状态"
+
+        dependencies: ["CODE-003"]
+
+      - id: "CODE-005"
+        title: "实现/next-phase命令"
+        description: "创建斜杠命令，用于进入下一Phase"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_005}"
+        estimated_hours: 3
+        actual_hours: 2.8
+        start_date: "{CODE_005_START_DATE}"
+        completion_date: "{CODE_005_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "Next Phase命令"
+            path: ".claude/commands/next-phase.md"
+            type: "command"
+
+        acceptance_criteria:
+          - "检查当前Phase状态"
+          - "验证所有Gate通过"
+          - "自动进入下一Phase"
+
+        dependencies: ["CODE-004"]
+
+      - id: "CODE-006"
+        title: "实现/new-feature命令"
+        description: "创建斜杠命令，自动生成新功能的Phase Gate文件"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_006}"
+        estimated_hours: 4
+        actual_hours: 3.5
+        start_date: "{CODE_006_START_DATE}"
+        completion_date: "{CODE_006_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "New Feature命令"
+            path: ".claude/commands/new-feature.md"
+            type: "command"
+
+        acceptance_criteria:
+          - "交互式创建功能"
+          - "自动生成所有文件"
+          - "集成到项目结构"
+
+        dependencies: ["CODE-001"]
+
+      - id: "CODE-007"
+        title: "将新工具安装到当前项目.claude/目录"
+        description: "复制所有命令和技能到项目目录"
+        status: "completed"
+        priority: "high"
+        assignee: "{ASSIGNEE_CODE_007}"
+        estimated_hours: 1
+        actual_hours: 0.8
+        start_date: "{CODE_007_START_DATE}"
+        completion_date: "{CODE_007_COMPLETION_DATE}"
+
+        artifacts:
+          - name: "安装的命令"
+            location: ".claude/commands/"
+          - name: "安装的技能"
+            location: "skills/"
+
+        acceptance_criteria:
+          - "所有命令已复制"
+          - "技能已安装"
+          - "权限设置正确"
+
+        dependencies: ["CODE-003", "CODE-004", "CODE-005", "CODE-006"]
+
+      - id: "CODE-008"
+        title: "升级看板展示Gate状态"
+        description: "开发Vue组件，在看板上展示Phase Gate状态"
+        status: "pending"
+        priority: "low"
+        assignee: "{ASSIGNEE_CODE_008}"
+        estimated_hours: 16
+        actual_hours: 0
+        start_date: ""
+        completion_date: ""
+
+        reason: "需要Vue组件开发，暂缓"
+        artifacts:
+          - name: "Gate状态组件"
+            type: "vue_component"
+
+        acceptance_criteria:
+          - "实时显示Gate状态"
+          - "支持点击查看详情"
+          - "集成到现有看板"
+
+        dependencies: ["CODE-002"]
+
+  # Phase 6: Test (测试验证)
+  Phase6-Test:
+    description: "测试和验证系统"
+    start_date: "{PHASE6_START_DATE}"
+    end_date: "{PHASE6_END_DATE}"
+    status: "{PHASE6_STATUS}"
+    progress_percentage: {PHASE6_PROGRESS}
+    owner: "{PHASE6_OWNER}"
+
+    tasks:
+      - id: "TEST-001"
+        title: "用真实feature测试Gate阻断"
+        description: "创建示例功能，验证Phase Gate机制的阻断效果"
+        status: "pending"
+        priority: "high"
+        assignee: "{ASSIGNEE_TEST_001}"
+        estimated_hours: 4
+        actual_hours: 0
+        start_date: ""
+        completion_date: ""
+
+        artifacts:
+          - name: "测试feature"
+            type: "example"
+
+        acceptance_criteria:
+          - "至少被Gate阻断一次"
+          - "阻断提示有价值"
+          - "解决方案有效"
+
+        dependencies: ["CODE-007"]
+
+      - id: "TEST-002"
+        title: "集成测试"
+        description: "验证所有命令的集成效果"
+        status: "pending"
+        priority: "medium"
+        assignee: "{ASSIGNEE_TEST_002}"
+        estimated_hours: 2
+
+        acceptance_criteria:
+          - "所有命令正常运行"
+          - "文件自动生成正确"
+          - "状态更新准确"
+
+# 任务统计
+task_statistics:
+  by_status:
+    pending: {COUNT_PENDING}
+    in_progress: {COUNT_IN_PROGRESS}
+    completed: {COUNT_COMPLETED}
+    blocked: {COUNT_BLOCKED}
+    failed: {COUNT_FAILED}
+    skipped: {COUNT_SKIPPED}
+
+  by_priority:
+    low: {COUNT_LOW}
+    medium: {COUNT_MEDIUM}
+    high: {COUNT_HIGH}
+    critical: {COUNT_CRITICAL}
+
+  by_assignee:
+    "{ASSIGNEE_1}":
+      assigned: {ASSIGNEE_1_ASSIGNED}
+      completed: {ASSIGNEE_1_COMPLETED}
+      completion_rate: {ASSIGNEE_1_RATE}
+
+    "{ASSIGNEE_2}":
+      assigned: {ASSIGNEE_2_ASSIGNED}
+      completed: {ASSIGNEE_2_COMPLETED}
+      completion_rate: {ASSIGNEE_2_RATE}
+
+# 阻塞项跟踪
+blockers:
+  - task_id: "CODE-008"
+    reason: "需要Vue组件开发能力"
+    type: "resource"
+    severity: "medium"
+    reported_date: "{BLOCKER_1_DATE}"
+    resolution: "等待前端资源分配"
+    estimated_resolution: "{BLOCKER_1_ESTIMATE}"
+
+  - task_id: "TEST-001"
+    reason: "依赖Phase5-Code完成"
+    type: "dependency"
+    severity: "low"
+    reported_date: "{BLOCKER_2_DATE}"
+    resolution: "等待前置任务完成"
+    estimated_resolution: "{BLOCKER_2_ESTIMATE}"
+
+# 里程碑
+milestones:
+  - id: "M1"
+    name: "设计完成"
+    date: "{MILESTONE_1_DATE}"
+    description: "Phase2-Spec完成，设计文档通过评审"
+    status: "completed"
+
+  - id: "M2"
+    name: "核心功能完成"
+    date: "{MILESTONE_2_DATE}"
+    description: "Phase5-Code核心命令实现完成"
+    status: "completed"
+
+  - id: "M3"
+    name: "测试验证完成"
+    date: "{MILESTONE_3_DATE}"
+    description: "所有测试完成，系统可以投入使用"
+    status: "pending"
+
+# 更新历史
+update_history:
+  - timestamp: "{UPDATE_1_TIMESTAMP}"
+    type: "task_completion"
+    description: "完成 CODE-007: 安装新工具到项目目录"
+    changed_by: "{UPDATE_1_AUTHOR}"
+
+  - timestamp: "{UPDATE_2_TIMESTAMP}"
+    type: "phase_progress"
+    description: "Phase5-Code 进度更新至 87.5%"
+    changed_by: "{UPDATE_2_AUTHOR}"
+
+# 配置信息
+configuration:
+  auto_update_frequency: "daily"  # hourly, daily, weekly
+  notification_settings:
+    task_completed: true
+    blocker_detected: true
+    phase_completed: true
+
+  report_settings:
+    daily_summary: true
+    weekly_report: true
+    milestone_alert: true
